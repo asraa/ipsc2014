@@ -1,3 +1,5 @@
+import re
+
 infile = open('s1.in', 'r')
 lines = infile.readlines()
 
@@ -22,24 +24,26 @@ while index < len(lines):
 		
 	outfile.write(str(max_score) + '\n')
 
-import re
 
 def detScore(s):
-	words = lines.split()
+	words = re.compile('[\s,.:;\'\"!?-]').split(s)
+	words = [word.strip() for word in words]
 	n = len(words)
 	in_asterick = [False]*len(words)
 	typ = [None]*len(words)
 	in_ast_space = False
 	for i, word in enumerate(words):
+		if word == '':
+			continue
 		begin = True if word[0] =='*' else False
 		end = True if word[-1] == '*' else False
-		if begin:
+		if begin or word == '*':
 			in_asterick = in_asterick[:i].append([not in_asterick[i]]*(n-i))
 		if end:
 			in_asterick = in_asterick[:i+1].append([not in_asterick[i]]*(n-i-1))
 
-	for word in enumerate(words):
-		if
+	for i, word in enumerate(words):
+			
 			
 		
 		
