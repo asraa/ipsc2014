@@ -19,20 +19,78 @@ while index < len(lines):
 	moves = lines[index]
 
 
-	new_array = [0]*len(size_strip)
 
 	for move in moves:
 		if move = 'l'
 			new_nums = move_left(nums)
-			num_empty = sum([1 for x in frequencies if x == 0])
-			if new_nums == nums:
-				pos = random() % num_empty
-				if (random() % 10) == 0:
-					new_value = 4
-				else:
-					new_value = 2
 		else:
 			new_nums = move_right(nums)
 
+		#get new random val
+		num_empty = sum([1 for x in frequencies if x == 0])
+		if new_nums == nums:
+			pos = random() % num_empty
+			if (random() % 10) == 0:
+				new_value = 4
+			else:
+				new_value = 2
+
+		#insert it
+			empty_counter = 0
+			for i,num in enumerate(new_num):
+				if new_nums[i] != 0:
+					continue
+				if new_nums[i] == 0 and empty_counter == pos:
+					new_nums[i] = new_value
+				else:
+					empty_counter += 1
+
+		nums = new_nums
+
 	
+def move_left(nums):
+	new_nums = [0]*len(size_strip)
+	inPair = False
+	pastNum = 0
+	index = 0
+	for i, num in enumerate(nums):
+		if num == 0:
+			continue
+		else:
+			if inPair and pastNum == num:
+				new_nums[index] = pastNum*2
+				index += 1
+			elif inPair and pastNum != num:
+				new_nums[index] = pastNum
+				new_nums[index+1] = num
+				inPair = False
+				index += 2
+			elif not inPair:
+				pastNum = num
+				inPair = True
+	return new_nums
+	
+def move_right(nums):
+	new_nums = [0]*len(size_strip)
+	inPair = False
+	pastNum = 0
+	index = 0
+	pairs = enumerate(nums)
+	pairs.reverse()
+	for i, num in pairs:
+		if num == 0:
+			continue
+		else:
+			if inPair and pastNum == num:
+				new_nums[index] = pastNum*2
+				index += 1
+			elif inPair and pastNum != num:
+				new_nums[index] = pastNum
+				new_nums[index+1] = num
+				inPair = False
+				index += 2
+			elif not inPair:
+				pastNum = num
+				inPair = True
+
 
