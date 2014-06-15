@@ -4,7 +4,9 @@ index = 0
 num_tests = int(lines[index].strip())
 index += 1 #move to blank line
 
+ms = list()
 while index < len(lines):
+	global ms
 	index += 1 #move past blank line
 	size_strip = float(lines[index].strip())
 	index += 1 #move past size strip line
@@ -29,8 +31,8 @@ while index < len(lines):
 		#get new random val
 		num_empty = sum([1 for x in frequencies if x == 0])
 		if new_nums == nums:
-			pos = random() % num_empty
-			if (random() % 10) == 0:
+			pos = random_dumb() % num_empty
+			if (random_dumb() % 10) == 0:
 				new_value = 4
 			else:
 				new_value = 2
@@ -74,7 +76,7 @@ def move_right(nums):
 	new_nums = [0]*len(size_strip)
 	inPair = False
 	pastNum = 0
-	index = 0
+	index = len(new_nums)-1
 	pairs = enumerate(nums)
 	pairs.reverse()
 	for i, num in pairs:
@@ -83,14 +85,24 @@ def move_right(nums):
 		else:
 			if inPair and pastNum == num:
 				new_nums[index] = pastNum*2
-				index += 1
+				index -= 1
 			elif inPair and pastNum != num:
 				new_nums[index] = pastNum
-				new_nums[index+1] = num
+				new_nums[index-1] = num
 				inPair = False
-				index += 2
+				index -= 2
 			elif not inPair:
 				pastNum = num
 				inPair = True
+ir = 43
+last_call_ans = 0
+def random_shit():
+	global ms
+	global ir	
+	c = 1 if ((ir>=43) and last_call_ans < 0) else 0
+	ans = (x[ir-22] - x[ir-43] - c) % (2**32)
+	last_call_ans = ans
+	ir += 1
+	return ans
 
 
