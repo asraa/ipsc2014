@@ -7,13 +7,15 @@ class Junction:
 	def __init__(self, number, connections):
 		self.number = number #Junction ID #
 		self.connections = connections #list of Junction's it's connected to
+	def number_connections(self):
+		return len(self.connections)
 	def add_connection(self, junction):
 		#add a connection to Junction_number
 		self.connections.append(junction)
 	#def remove_connection(self, junction):
 	#	self.
 	def is_reachable(self, junction):
-		return junction in self.connections
+		return junction in self.connections #GOTTA CHANGE THIS
 
 def assemble_network(n,network):
 	#assemble network based on sum line
@@ -33,11 +35,15 @@ def junction_solve(n, network):
 	for a in range(len(ordered)):
 		for b in range(a,len(a)):
 			if ordered[a][b] and not b == a:
-
-		#if there is no path betweeen Junction a and b already
-
-		#add a path
-
+				if not ordered[a].is_reachable(ordered[b]):
+					ordered[a].add_connection(ordered[b])
+	m = 0
+	path_list = []
+	for junction in junction_list:
+		m+=junction.number_connections()
+		for i in junction.connections:
+			path_list.append(junction.number, junction.connections[i].number)
+	return m, path_list
 
 for i in range(num_test_cases):
 
