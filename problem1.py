@@ -42,11 +42,22 @@ def detScore(s):
 		if end:
 			in_asterick = in_asterick[:i+1].append([not in_asterick[i]]*(n-i-1))
 
+	score = 0
 	for i, word in enumerate(words):
+		if word == '' or word == '*':
+			continue
+		caps = isAllCaps(word)
+		if caps and in_asterick[i]:
+			score += 6
+		elif in_asterick[i]:
+			score += 3
+		elif caps:
+			score += 2
+		else:
+			score += 1
+	return score
 			
-			
+def isAllCaps(word):
+	for c in word:
+		if c.isupper()	
 		
-		
-
-
-print num_test_cases
