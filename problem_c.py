@@ -8,7 +8,8 @@ def solve(n, SS):
 	'''return original permutation given 
 	n = integer length of final sequence
 	S = the final sequence as a string of space separated integers'''
-	S = SS.strip()
+	A = SS.strip().split()
+	S = [int(i) for i in A]
 	l = int(max(S))
 	sequence_length = n - l #length of repeated sequence
 	for block_index in range(l):
@@ -20,8 +21,8 @@ def solve(n, SS):
 			for i in s:
 				a += str(i)
 				a += " "
-			return a[:-1]
-
+			return a
+		
 index+=1 #starting line
 f = open('answer_c1.txt','r+')
 while index < len(lines):
