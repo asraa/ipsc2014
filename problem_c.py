@@ -1,4 +1,4 @@
-infile = open('c1.in','r')
+infile = open('c2.in','r')
 lines = infile.readlines()
 index = 0
 num_test_cases = int(lines[index].strip())
@@ -9,22 +9,20 @@ def solve(n, SS):
 	n = integer length of final sequence
 	S = the final sequence as a string of space separated integers'''
 	A = SS.strip().split()
-	S = [int(i) for i in A]
-	l = int(max(S))
-	sequence_length = n - l #length of repeated sequence
-	for block_index in range(l):
-		block = S[block_index:(block_index+sequence_length)]
-		next_block = S[block_index+sequence_length:(block_index+2*sequence_length)]
-		if block == next_block:
-			s = S[:block_index]+S[block_index+sequence_length:]
-			a = ""
-			for i in s:
-				a += str(i)
-				a += " "
-			return a
+	seq = []
+	for i in A:
+		if i not in seq:
+			seq.append(i)
+
+	perm = ""
+	for i in seq:
+		perm+=i
+		perm +=" "
+	return perm[:-1]
+print solve(11, "4 3 1 2 3 1 4 3 3 1 4")
 		
 index+=1 #starting line
-f = open('answer_c1.txt','r+')
+f = open('answer_c2.txt','r+')
 while index < len(lines):
 	seq = str(solve(int(lines[index]),lines[index+1]))
 	index += 3
