@@ -1,9 +1,3 @@
-infile = open('a1.in','r')
-outfile = open('a1.out','w')
-lines = infile.readlines()
-
-num_test_cases = int(lines[0].strip())
-
 enter = "*"
 backspace = "<"
 
@@ -38,7 +32,7 @@ def solve(p, q):
 	else:
 		diff = len(p) - len(q)
 		# correcting the difference is less costly than writing the password, correct the difference
-		if abs(diff) < len(p):
+		if abs(diff) < len(p) + 1:
 			if diff > 0:
 				output_string = p[(len(p) - diff):] + enter
 			elif diff < 0:
@@ -48,15 +42,11 @@ def solve(p, q):
 		else:
 			output_string = enter + p + enter
 
-	print output_string
 	return output_string
 
 #solve('hqqlohbrlwwltkrsyg', 'hqqlohbrlwwltkrsyghzxbekdlsmq')
-	
 
-"""#part a
-for q in ['help', 'jello', 'helloeverybody', 'helloworltthere', 'hellogirl', 'helicopter', 'hellboy', 'hellowormhole', 'hallowelt', 'hellothere']:
-	outfile.write(solve('helloworld', q) + '\n')"""
+outfile = open('out.out', 'w')
 
 with open('a2.in','r') as infile:
 	num_test_cases = int(infile.next().strip())
@@ -64,8 +54,6 @@ with open('a2.in','r') as infile:
 		infile.next() #skip blank line
 		p = infile.next().strip()
 		q = infile.next().strip()
-		#print "p", p
-		#print "q", q
 		outfile.write(solve(p,q) + "\n")
 
 
