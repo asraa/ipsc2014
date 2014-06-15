@@ -18,6 +18,7 @@ def solve(p, q):
 			first_mistake = i
 			break
 
+	output_string = "" #the string showing the key sequence we want
 	if first_mistake >= 0:
 
 		#compare two options: 
@@ -28,24 +29,45 @@ def solve(p, q):
 		option_1_cost = num_deletes + num_additions_after_delete
 		option_2_cost = 1 + len(p) # p additions + 1 for pressing enter
 
-		output_string = "" #the string showing the key sequence we want
 		if option_1_cost <= option_2_cost:
 			output_string = backspace*num_deletes + p[first_mistake:] + enter
 		else:
 			output_string = enter + p + enter
 
-		outfile.write(output_string)
-
 	#if there was no mistake
 	else:
 		diff = len(p) - len(q)
-		if diff > 0:
-			outfile.write(p[(len(p) - diff):] + enter)
+		# correcting the difference is less costly than writing the password, correct the difference
+		if abs(diff) < len(p):
+			if diff > 0:
+				output_string = p[(len(p) - diff):] + enter
+			elif diff < 0:
+				output_string = backspace*abs(diff) + enter
+			else:
+				output_string = enter
 		else:
-			outfile.write(enter)
+			output_string = enter + p + enter
 
+	print output_string
+	return output_string
 
-solve('superfastawesome', 'superfastaxesome')
+#solve('hqqlohbrlwwltkrsyg', 'hqqlohbrlwwltkrsyghzxbekdlsmq')
+	
+
+"""#part a
+for q in ['help', 'jello', 'helloeverybody', 'helloworltthere', 'hellogirl', 'helicopter', 'hellboy', 'hellowormhole', 'hallowelt', 'hellothere']:
+	outfile.write(solve('helloworld', q) + '\n')"""
+
+with open('a2.in','r') as infile:
+	num_test_cases = int(infile.next().strip())
+	for i in range(0,num_test_cases):
+		infile.next() #skip blank line
+		p = infile.next().strip()
+		q = infile.next().strip()
+		#print "p", p
+		#print "q", q
+		outfile.write(solve(p,q) + "\n")
+
 
 
 
